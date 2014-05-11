@@ -1,0 +1,54 @@
+<?doctype html>
+<html>
+<head>
+<title>Ponymote Animator</title>
+<link rel="stylesheet" type="text/css" href="app.css">
+</head>
+<body>
+<div id="container">
+	<div id="icons"></div>
+	<div id="play" contentEditable="true">
+		<div>flutters (rfluttershy 20 10)</div>
+		<div>dash (louder 70 5)</div>
+		<div>rarity (raritysad 120 15)</div>
+		<div>pinkie (rparty 250 10)</div>
+		<div>flutters,dash,rarity &gt; 20</div>
+		<div>+rarity : Please -- please, talk to use, Pinkie</div>
+		<div>rarity,dash &gt; 4</div>
+		<div>rarity &gt; 4</div>
+		<div>.............................</div>
+		<div>dash (rdcry)</div>
+		<div>dash : You haven't said anything in three days!</div>
+		<div>pinkie (rppseesyou)</div>
+		<div>dash : Please, just -- give us something!</div>
+		<div>rarity (raritywhy)</div>
+		<div>rarity : We're all so worried about you,</div>
+		<div>rarity : and we don't even know what's wrong!</div>
+		<div>pinkie (rppfear)</div>
+		<div>rarity (rraritywhine)</div>
+		<div>rarity : I'd do anything to know you're--</div>
+		<div>pinkie (pinkieawe)</div>
+		<div>pinkie : Alright, alright! I give up! You win!</div>
+		<div>=flutters,dash,rarity,pinkie &lt;&lt; 20</div>
+		<div>pinkie (ppcute)</div>
+		<div>pinkie : I was making this thing!</div>
+		<div>rarity (rraritydaww)</div>
+		<div>dash (rdsmile)</div>
+		<div>flutters (flutteryay)</div>
+		<div>flutters : Yay!</div>
+		<div>flutters : Yay!</div>
+	</div>
+</div>
+<canvas width=300 height=125 id="stage"></canvas>
+<div class="controls">
+	&#x2194; <input id="width" type="number" min="10" max="800" value="300"></input>
+	&#x2195; <input id="height" type="number" min="10" max="600" value="125"></input>
+	&#9742; <input id="search" type="text" placeholder="Look up ponymotes"></input>
+</div>
+<div id="results">
+</div>
+<div id="footer">Made with love and apologies to <a href="//reddit.com/user/I_Animate_Ponymotes">I_Animate_Ponymotes</a>.</div>
+<script style="text/javascript" src="ponydict.js"></script>
+<script style="text/javascript" src="app.js"></script>
+</body>
+</html>
