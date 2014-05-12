@@ -32,6 +32,10 @@ body {
 	position: relative;
 }
 
+#play b {
+	color: rgb(77, 144, 254);
+}
+
 #stage {
 	box-shadow: 1px 2px 5px #ccc;
 	display: block;
