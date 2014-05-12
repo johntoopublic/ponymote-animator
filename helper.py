@@ -4,7 +4,7 @@ import re
 import sys
 
 if not len(sys.argv) > 1:
-    print ('Usage %s subreddit.css > ponydict.js' % sys.argv[0])
+    print ('Usage %s subreddit.css' % sys.argv[0])
     sys.exit()
 
 rules = [re.findall('="(.*?)"]', rule) for rule in
@@ -20,4 +20,5 @@ for rule in rules:
             matches.clear()
         else:
             matches.append(target)
-print('var PONIES = ', keys)
+js = ','.join(['"%s":"%s"' % (k[0],k[1]) for k in sorted(keys.items())])
+print('var PONIES = {%s}' % js, file=open('ponydict.js', 'w'))
