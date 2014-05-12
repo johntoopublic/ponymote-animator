@@ -119,13 +119,19 @@ var addPony = function(element, command) {
 /* Queue an action on a pony. */
 var action = function(element, command) {
 	var duration = 0;
-	var dx, talk;
+	var talk;
+	var dx = 0;
+	var dy = 0;
 	var mod = command[1];
 	var glyph = command[3];
 	var extra = command[4];
 	if (glyph[0] == '<' || glyph[0] == '>') {
 		duration = parseInt(extra) || 10;
 		dx = glyph[0] == '<' ? -glyph.length : glyph.length;
+	}
+	if (glyph[0] == '^' || glyph[0] == 'v') {
+		duration = parseInt(extra) || 10;
+		dy = glyph[0] == 'v' ? -glyph.length : glyph.length;
 	}
 	if (glyph == ':') {
 		duration = extra.length;
@@ -139,8 +145,8 @@ var action = function(element, command) {
 		}
 		var up = false;
 		for (var i = 0; i < duration; i++) {
-			var data = {dx: dx};
-			if (mod != '=') data.dy = up ? -1 : 1;
+			var data = {dx: dx, dy: dy};
+			if (mod != '=') data.dy += up ? -1 : 1;
 			pony.queue(time + i, data);
 			up = !up;
 		}
@@ -158,7 +164,7 @@ var process = function(element) {
 		return;
 	}
 	var init = /^(\w+) ?\(([a-z]+) ?(-?[0-9, ]*)\)$/;
-	var verb = /^([+=]?)([\w,]+) ?([<:>]+) ?(.*)$/;
+	var verb = /^([+=]?)([\w,]+) ?([<^:v>]+) ?(.*)$/;
 	var wait = /^(\.+)$/;
 	var command;
 	if (!element.icon) {
