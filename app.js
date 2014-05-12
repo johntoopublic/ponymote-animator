@@ -33,8 +33,7 @@ var Pony = function() {
 Pony.getImage = function(ponymote) {
 	if (ponymote[0] != '/') ponymote = '/' + ponymote;
 	if (PONIES[ponymote]) ponymote = PONIES[ponymote];
-	return 'all-emotes/' + (ponymote.length == 4 ?  ponymote[1] : ponymote[2]) +
-		'-table' + ponymote + '.png';
+	return 'ponymotes' + ponymote + '.png';
 };
 
 /* Draw ponymote once set. */
