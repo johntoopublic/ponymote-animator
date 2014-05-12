@@ -244,7 +244,7 @@ search.oninput = function() {
 gifjs.onclick = function() {
 	clearInterval(interval);
 	var gif = new GIF({
-		workerScript: 'gif.js/dist/gif.worker.js',
+		workerScript: 'gifjs/gif.worker.js',
 		workers: 9,
 		width: stage.width,
 		height: stage.height,
