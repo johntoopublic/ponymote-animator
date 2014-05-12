@@ -145,13 +145,13 @@ var action = function(element, command) {
 		var up = false;
 		for (var i = 0; i < duration; i++) {
 			var data = {dx: dx, dy: dy};
-			if (mod != '=') data.dy += up ? -1 : 1;
+			if (mod.indexOf('=') == -1) data.dy += up ? -1 : 1;
 			pony.queue(time + i, data);
 			up = !up;
 		}
 		if (up) pony.queue(time + i, {dy: -2});
 	});
-	if (mod != '+') time += duration;
+	if (mod.indexOf('+') == -1) time += duration;
 };
 
 /* Process the play. */
@@ -163,7 +163,7 @@ var process = function(element) {
 		return;
 	}
 	var init = /^(\w+) ?\(([a-z]+) ?(-?[0-9, ]*)\)$/;
-	var verb = /^([+=]?)([\w,]+) ?([<^:v>]+) ?(.*)$/;
+	var verb = /^([+=]*)([\w,]+) ?([<^:v>]+) ?(.*)$/;
 	var wait = /^(\.+)$/;
 	var command;
 	if (!element.icon) {
