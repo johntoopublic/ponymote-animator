@@ -242,6 +242,7 @@ search.oninput = function() {
 
 /* Attempt to generate a GIF. */
 gifjs.onclick = function() {
+	if (ga) {ga('send', 'event', 'gif', 'start');}
 	clearInterval(interval);
 	var gif = new GIF({
 		workerScript: 'gifjs/gif.worker.js',
@@ -257,6 +258,7 @@ gifjs.onclick = function() {
 		progress.style.width = percent * 100 + '%';
 	});
 	gif.on('finished', function(output) {
+		if (ga) {ga('send', 'event', 'gif', 'finish');}
 		bar.style.display = 'none';
 		var finished = document.createElement('img');
 		finished.src = URL.createObjectURL(output);
