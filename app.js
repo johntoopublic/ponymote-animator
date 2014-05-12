@@ -10,6 +10,10 @@ stageWidth.oninput = stageHeight.oninput = function() {
 	stage.height = stageHeight.valueAsNumber;	
 }
 var search = document.getElementById('search');
+var gifjs = document.getElementById('gifjs');
+var controls = document.getElementById('controls');
+var progress = document.getElementById('progress');
+var bar = document.getElementById('bar');
 play.focus();
 
 /* Lookup for pony actors. */
@@ -51,6 +55,7 @@ Pony.prototype.draw = function() {
 			x = stage.width - width / 2;
 		if (x - width / 2 < 0)
 			x = width / 2;
+		ctx.fillStyle = '#000';
 		ctx.fillText(this.talk, x, y);
 	}
 };
@@ -185,8 +190,9 @@ var process = function(element) {
 
 /* Run through the animation on repeat. */
 var index = 0; // Current rendered frame.
-setInterval(function() {
-	ctx.clearRect(0, 0, stage.width, stage.height);
+var render = function() {
+	ctx.fillStyle = '#fff';
+	ctx.fillRect(0, 0, stage.width, stage.height);
 	var sorted = Object.keys(ponies);
 	sorted.forEach(function(pony) {
 		ponies[pony].update(index);
@@ -198,7 +204,8 @@ setInterval(function() {
 		ponies[pony].draw();
 	});
 	if (index++ > time) index = 0;
-}, 60);
+}
+var interval = setInterval(render, 60);
 
 /* Auto update on edit. */
 var time = 0; // Current processed, generally set to max frame.
@@ -220,12 +227,46 @@ search.oninput = function() {
 			if (!cache[pony]) {
 				cache[pony] = new Image();
 				cache[pony].src = Pony.getImage(pony);
+				cache[pony].onerror = function() {
+					cache[pony].style.display = 'none';
+					delete PONIES[pony];
+					delete cache[pony];
+				};
 			}
 			image = cache[pony];
-			image.src = Pony.getImage(pony);
 			image.title = pony;
-			image.onerror = function() {image.style.display = 'none';}
 			results.appendChild(cache[pony]);
 		}
 	});
 };
+
+/* Attempt to generate a GIF. */
+gifjs.onclick = function() {
+	clearInterval(interval);
+	var gif = new GIF({
+		workerScript: 'gif.js/dist/gif.worker.js',
+		workers: 9,
+		width: stage.width,
+		height: stage.height,
+		quality: 1
+	});
+	gif.on('start', function() {
+		bar.style.display = 'block';
+	});
+	gif.on('progress', function(percent) {
+		progress.style.width = percent * 100 + '%';
+	});
+	gif.on('finished', function(output) {
+		bar.style.display = 'none';
+		var finished = document.createElement('img');
+		finished.src = URL.createObjectURL(output);
+		controls.appendChild(finished);
+	});
+	index = 0;
+	while (index <= time) {
+		render();
+		gif.addFrame(ctx, {copy: true, delay: 60});
+	}
+	gif.render();
+	interval = setInterval(render, 60);
+}

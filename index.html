@@ -40,15 +40,22 @@
 	</div>
 </div>
 <canvas width=300 height=125 id="stage"></canvas>
-<div class="controls">
+<div id="controls">
 	&#x2194; <input id="width" type="number" min="10" max="800" value="300"></input>
 	&#x2195; <input id="height" type="number" min="10" max="600" value="125"></input>
 	&#9742; <input id="search" type="text" placeholder="Look up ponymotes"></input>
+	<input id="gifjs" type="button" value=">GIF"></input>
+	<div id="bar">
+		<div id="progress"></div>
+	</div>
 </div>
-<div id="results">
+<div id="results"></div>
+<div id="footer">
+	<a href="http://i-animate-ponymotes.tumblr.com/post/83341999523/animation-silence-concept-by-zorand-mirrors">Inspired</a>
+	by, and apologies to <a href="http://reddit.com/user/I_Animate_Ponymotes">I_Animate_Ponymotes</a>.
 </div>
-<div id="footer">Made with love and apologies to <a href="//reddit.com/user/I_Animate_Ponymotes">I_Animate_Ponymotes</a>.</div>
 <script style="text/javascript" src="ponydict.js"></script>
 <script style="text/javascript" src="app.js"></script>
+<script style="text/javascript" src="gif.js/dist/gif.js"></script>
 </body>
 </html>

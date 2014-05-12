@@ -2,10 +2,6 @@ body {
 	margin: 20px;
 }
 
-.controls {
-	text-align: center;
-}
-
 #container {
 	margin: 80px auto 20px;
 	max-width: 500px;
@@ -41,6 +37,29 @@ body {
 	display: block;
 	margin: 20px auto;
 	position: relative;
+}
+
+#controls {
+	text-align: center;
+}
+
+#controls img {
+	display: block;
+	margin: auto;
+}
+
+#bar {
+	border: 1px solid #000;
+	display: none;
+	height: 2px;
+	margin: 20px auto;
+	max-width: 500px;
+}
+
+#progress {
+	background: rgb(77, 144, 254);
+	height: 2px;
+	width: 0%;
 }
 
 #results {
