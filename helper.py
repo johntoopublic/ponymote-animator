@@ -6,23 +6,24 @@ import re
 import sys
 import urllib.request
 
-if not len(sys.argv) > 1:
-    print ('Usage %s subreddit.css' % sys.argv[0])
-    sys.exit()
-css = open(sys.argv[1]).read()
-rules = [re.findall('="(.*?)"]', rule) for rule in
-        re.split('{.*?}', css)
-        if re.match('.*/r?[a-e]00', rule)]
+response = urllib.request.urlopen(
+    'http://d.thumbs.redditmedia.com/H7cJYzEPFntnNZFu.css')
+css = response.read().decode('utf-8')
+grid = {}
+positions = re.findall(
+    '([^}]+?)background-position:-?(\d)\S*? -?(\d)', css)
+for rule in positions:
+    for ponymote in re.findall('\|="(/\w+)', rule[0]):
+        if not re.search('\d', ponymote):
+            grid[ponymote] = ''.join(rule[1:])
+rules = [rule for rule in re.split('{.*?}', css)
+        if re.search('/r?[a-e]00', rule)]
 keys = {}
 for rule in rules:
-    matches = []
-    for target in rule:
-        if re.match('.*/r?[a-e][0-9]{2}', target):
-            for match in matches:
-                keys[match] = target
-            matches.clear()
-        else:
-            matches.append(target)
+    key = re.search('(/r?[a-e])00', rule).group(1)
+    for ponymote in re.findall('\|="(/\w+)"', rule):
+        if not re.search('\d', ponymote):
+            keys[ponymote] = key + grid.get(ponymote, '00')
 js = ','.join(['"%s":"%s"' % (k[0],k[1]) for k in sorted(keys.items())])
 print('var PONIES = {%s}' % js, file=open('ponydict.js', 'w'))
 
