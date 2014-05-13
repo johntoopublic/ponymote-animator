@@ -1,5 +1,5 @@
-Ponymote Animator
-=================
+[Ponymote Animator](johntoopublic.github.io/ponymote-animator)
+===================
 
 Simple site to generate [I_Animate_Ponymotes](http://reddit.com/u/I_Animate_Ponymotes) style animations.
 
