@@ -2,6 +2,13 @@ body {
 	margin: 20px;
 }
 
+#together {
+  position: absolute;
+  right: 20px;
+  transform: rotate(45deg);
+  top: 60px;
+}
+
 #container {
 	margin: 80px auto 20px;
 	max-width: 500px;

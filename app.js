@@ -219,7 +219,20 @@ var time = 0; // Current processed, generally set to max frame.
 	time = 0;
 	ponies = {};
 	process(play);
+  if (TogetherJS.running) {
+    TogetherJS.send({
+      type: 'text-send',
+      output: play.innerText
+    });
+  }
 })();
+
+TogetherJS.hub.on('text-send', function(msg) {
+  if (!msg.sameUrl) {
+    return;
+  }
+  play.innerText = msg.output;
+});
 
 /* Populate image results. */
 search.oninput = function() {
