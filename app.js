@@ -14,6 +14,7 @@ var gifjs = document.getElementById('gifjs');
 var controls = document.getElementById('controls');
 var progress = document.getElementById('progress');
 var bar = document.getElementById('bar');
+var together = document.getElementById('together');
 play.focus();
 
 /* Lookup for pony actors. */
@@ -289,4 +290,8 @@ gifjs.onclick = function() {
 	}
 	gif.render();
 	interval = setInterval(render, 60);
+}
+
+gifjs.onclick = function() {
+	if (ga) {ga('send', 'event', 'together');}
 }
