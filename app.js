@@ -292,6 +292,6 @@ gifjs.onclick = function() {
 	interval = setInterval(render, 60);
 }
 
-gifjs.onclick = function() {
+together.addEventListener('click', function() {
 	if (ga) {ga('send', 'event', 'together');}
-}
+});
