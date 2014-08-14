@@ -1,4 +1,4 @@
-[Ponymote Animator](http://johntoopublic.github.io/ponymote-animator)
+[Ponymote Animator](http://johntoopublic.github.io/ponymote-animator) ![weekly users](https://analytics-badge.appspot.com/badge/UA-50859182-1.svg)
 ===================
 
 Simple site to generate [I_Animate_Ponymotes](http://reddit.com/u/I_Animate_Ponymotes) style animations.
