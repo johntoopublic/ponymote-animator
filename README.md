@@ -1,7 +1,14 @@
-[Ponymote Animator](http://johntoopublic.github.io/ponymote-animator)
+[Ponymote Animator](http://johntoopublic.github.io/ponymote-animator/) [![weekly users](https://analytics-badge.appspot.com/badge/UA-50859182-1.svg)](https://analytics-badge.appspot.com/)
 ===================
 
 Simple site to generate [I_Animate_Ponymotes](http://reddit.com/u/I_Animate_Ponymotes) style animations.
 
- - **[all-emotes](/all-emotes)** extract of [this](https://www.mediafire.com/?12oludanym9ogbx) from [here](http://www.reddit.com/r/mylittlepony/wiki/emote_guide#wiki_looking_for_all_the_emotes_as_individual_images.3F).
- - **[helper.py](/helper.py)** Python script to break down the [CSS](http://d.thumbs.redditmedia.com/H7cJYzEPFntnNZFu.css) from [/r/mylittlepony](http://reddit.com/r/mylittlepony) into [ponydict.js](/ponydict.js).
+ - **[helper.py](/helper.py)** Python script to break down the [CSS](http://d.thumbs.redditmedia.com/H7cJYzEPFntnNZFu.css) from [/r/mylittlepony](http://reddit.com/r/mylittlepony) into [ponydict.js](/ponydict.js) and download all the emotes into [ponymotes/](/ponymotes).
+
+Steps to update the ponymotes used:
+
+ - Check out this repo.
+ - virtualenv env # Create a virtual Python environment to install libraries.
+ - pip install Pillow # Fork of PIL, used to slice apart spritesheets.
+ - ./helper.py # This updates the dictionary, and creates the images.
+ - Commit, and send a pull request.
