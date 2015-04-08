@@ -1,13 +1,14 @@
-#!/usr/bin/python
-# Meant for use with http://d.thumbs.redditmedia.com/H7cJYzEPFntnNZFu.css
+#!/usr/bin/env python
+# Meant for use with the active /r/mylittlepony stylesheet.
 from PIL import Image
 import io
 import re
 import sys
 import urllib.request
 
+# URL manually pulled from reddit source.
 response = urllib.request.urlopen(
-    'http://d.thumbs.redditmedia.com/H7cJYzEPFntnNZFu.css')
+    'https://b.thumbs.redditmedia.com/Hbmg_uAN7uI5StsWSk_Mx9iFn3R_rYf_6ePKDnAoB0U.css')
 css = response.read().decode('utf-8')
 grid = {}
 positions = re.findall(
@@ -17,19 +18,23 @@ for rule in positions:
         if not re.search('\d', ponymote):
             grid[ponymote] = ''.join(rule[1:])
 rules = [rule for rule in re.split('{.*?}', css)
-        if re.search('/r?[a-e]00', rule)]
+        if re.search('/r?[a-z]00', rule)]
 keys = {}
 for rule in rules:
-    key = re.search('(/r?[a-e])00', rule).group(1)
+    key = re.search('(/r?[a-z])00', rule).group(1)
     for ponymote in re.findall('\|="(/\w+)"', rule):
         if not re.search('\d', ponymote):
             keys[ponymote] = key + grid.get(ponymote, '00')
 js = ','.join(['"%s":"%s"' % (k[0],k[1]) for k in sorted(keys.items())])
 print('var PONIES = {%s}' % js, file=open('ponydict.js', 'w'))
 
-files = dict(re.findall('/([a-e])00.*?url\("(.*?)"\)', css))
+files = dict(re.findall('/([a-z])00.*?url\("(.*?)"\)', css))
 for k in files:
-    block = io.BytesIO(urllib.request.urlopen(files[k]).read())
+    url = files[k]
+    # urllib complains about schemeless URLs.
+    if url[:2] == '//':
+        url = 'http:' + url
+    block = io.BytesIO(urllib.request.urlopen(url).read())
     image = Image.open(block)
     for x in range(0, 4):
         for y in range(0, 10):
